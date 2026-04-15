@@ -5,32 +5,32 @@
   import EditorArea from './components/EditorArea.svelte'
   import ChatPanel from './components/ChatPanel.svelte'
   import StatusBar from './components/StatusBar.svelte'
+  import { chatVisible } from './lib/uiState.js'
 
   let activeView = 'explorer'
+
+  function toggleChat() {
+    chatVisible.update(v => !v)
+  }
 </script>
 
 <div class="app" alt-id="VS Code application window, Visual Studio Code IDE interface">
-  <!-- Title bar -->
-  <TitleBar activeFile="README.md" />
+  <TitleBar onToggleChat={toggleChat} chatOpen={$chatVisible} />
 
-  <!-- Main content area below title bar -->
   <div class="main-content" alt-id="Main content area of VS Code, below title bar">
-    <!-- Activity bar (leftmost icon strip) -->
     <ActivityBar bind:activeView />
 
-    <!-- File explorer sidebar -->
     {#if activeView === 'explorer'}
       <FileExplorer />
     {/if}
 
-    <!-- Editor area -->
     <EditorArea />
 
-    <!-- Chat panel (right) -->
-    <ChatPanel />
+    {#if $chatVisible}
+      <ChatPanel />
+    {/if}
   </div>
 
-  <!-- Status bar (bottom) -->
   <StatusBar />
 </div>
 

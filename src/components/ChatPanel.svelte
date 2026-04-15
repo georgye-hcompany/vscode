@@ -1,52 +1,64 @@
 <script>
-  import { openStates } from '../lib/uiState.js'
-  import { onMount } from 'svelte'
-
   let chatInput = ''
-  let isOpen = false
-
-  onMount(() => {
-    const $open = new URLSearchParams(window.location.search).get('open')
-    // panel is always visible in this layout
-  })
 </script>
 
 <div class="chat-panel" alt-id="Chat panel, Cursor AI chat sidebar on right side of editor">
-  <!-- Panel header -->
-  <div class="panel-header" alt-id="Chat panel header bar">
-    <div class="panel-tabs" alt-id="Chat panel tabs">
-      <button class="panel-tab active" alt-id="CHAT tab in chat panel, active chat tab, first tab in chat panel header">
+
+  <!-- Row 1: CHAT tab + action buttons -->
+  <div class="header-row1" alt-id="Chat panel top header row, containing CHAT tab and action buttons">
+    <div class="tab-section" alt-id="Chat panel tab section in top header row">
+      <button class="chat-tab active" alt-id="CHAT tab in chat panel, active chat tab, first tab in chat panel top header row">
         CHAT
       </button>
     </div>
-    <div class="panel-header-actions" alt-id="Chat panel header action buttons">
-      <button class="ph-btn" alt-id="Restore chat panel size button, first action button in chat panel header" title="Restore">
-        <i class="fa-light fa-up-right-and-down-left-from-center"></i>
+
+    <div class="row1-actions" alt-id="Chat panel top row action buttons, right side of chat panel top header">
+      <!-- New chat with dropdown -->
+      <button class="hdr-btn new-btn" alt-id="New chat button in chat panel header, add new chat button, first action button in chat panel top header row" title="New Chat">
+        <i class="fa-light fa-plus"></i>
+        <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
       </button>
-      <button class="ph-btn" alt-id="Chat options button, second action button in chat panel header" title="Options">
+      <!-- Gear/settings -->
+      <button class="hdr-btn" alt-id="Chat settings button in chat panel header, gear settings icon, second action button in chat panel top header row" title="Chat Settings">
+        <i class="fa-light fa-gear"></i>
+      </button>
+      <!-- More options -->
+      <button class="hdr-btn" alt-id="More options button in chat panel header, ellipsis button, third action button in chat panel top header row" title="More Options">
         <i class="fa-light fa-ellipsis"></i>
       </button>
-      <button class="ph-btn" alt-id="Close chat panel button, third action button in chat panel header" title="Close">
+      <!-- Expand/fullscreen -->
+      <button class="hdr-btn" alt-id="Expand chat panel button in chat panel header, fullscreen icon, fourth action button in chat panel top header row" title="Expand">
+        <i class="fa-light fa-expand"></i>
+      </button>
+      <!-- Close -->
+      <button class="hdr-btn" alt-id="Close chat panel button in chat panel header, X close icon, fifth action button in chat panel top header row" title="Close">
         <i class="fa-light fa-xmark"></i>
       </button>
     </div>
-    <div class="sessions-section" alt-id="SESSIONS tab in chat panel header">
-      <button class="sessions-btn" alt-id="SESSIONS tab button in chat panel, view sessions button">
-        <i class="fa-light fa-clock-rotate-left" style="font-size:11px; margin-right:4px"></i>
-        SESSIONS
+  </div>
+
+  <!-- Row 2: SESSIONS label + secondary icons -->
+  <div class="header-row2" alt-id="Chat panel sessions header row, second row of chat panel header containing SESSIONS label and filter buttons">
+    <span class="sessions-label" alt-id="SESSIONS label in chat panel sessions row, bold sessions heading">SESSIONS</span>
+
+    <div class="row2-actions" alt-id="Sessions row action buttons, right side of sessions header row">
+      <button class="hdr-btn" alt-id="Refresh sessions button in chat panel, rotate refresh icon, first action button in sessions header row" title="Refresh">
+        <i class="fa-light fa-rotate-right"></i>
+      </button>
+      <button class="hdr-btn" alt-id="Search sessions button in chat panel, magnifying glass icon, second action button in sessions header row" title="Search Sessions">
+        <i class="fa-light fa-magnifying-glass"></i>
+      </button>
+      <button class="hdr-btn" alt-id="Filter sessions button in chat panel, funnel filter icon, third action button in sessions header row" title="Filter">
+        <i class="fa-light fa-filter"></i>
+      </button>
+      <button class="hdr-btn" alt-id="Toggle panel layout button in chat panel, panel layout icon, fourth action button in sessions header row" title="Toggle Layout">
+        <i class="fa-light fa-sidebar-flip"></i>
       </button>
     </div>
   </div>
 
   <!-- Chat body -->
-  <div class="chat-body" alt-id="Chat panel main content area">
-    <!-- Tip message -->
-    <div class="tip-message" alt-id="Tip message in chat panel, Plan agent tip notification">
-      <span class="tip-label" alt-id="Tip label prefix in chat panel tip message">Tip</span>
-      <span class="tip-text" alt-id="Tip message text, suggestion to use Plan agent">
-        Try the Plan agent to research and plan before implementing changes.
-      </span>
-    </div>
+  <div class="chat-body" alt-id="Chat panel main content area, sessions list area">
   </div>
 
   <!-- Chat input area -->
@@ -67,7 +79,7 @@
           Ask
         </button>
         <button class="ask-dropdown" alt-id="Ask mode dropdown button in chat panel footer, dropdown arrow for ask button">
-          <i class="fa-light fa-chevron-down" style="font-size:9px"></i>
+          <i class="fa-solid fa-chevron-down" style="font-size:8px"></i>
         </button>
       </div>
       <button class="approvals-btn" alt-id="Default Approvals button in chat panel footer, second button in chat panel footer">
@@ -81,45 +93,71 @@
   .chat-panel {
     width: 260px;
     min-width: 200px;
-    background: #252526;
+    background: #1e1e1e;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    border-left: 1px solid #3c3c3c;
+    border-left: 1px solid #2d2d2d;
   }
-  .panel-header {
+
+  /* ── Row 1 ── */
+  .header-row1 {
     height: 35px;
-    background: #252526;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #3c3c3c;
+    padding: 0 4px 0 0;
     flex-shrink: 0;
-    padding: 0 4px;
-    gap: 2px;
+    border-bottom: 1px solid #2d2d2d;
   }
-  .panel-tabs { display: flex; flex: 1; }
-  .panel-tab {
+  .tab-section { flex: 1; display: flex; height: 100%; }
+  .chat-tab {
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
     color: #858585;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 0 8px;
-    height: 35px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 0 12px;
+    height: 100%;
     cursor: pointer;
+    text-transform: uppercase;
   }
-  .panel-tab.active {
+  .chat-tab.active {
     color: #cccccc;
     border-bottom: 2px solid #007acc;
   }
-  .panel-header-actions {
+  .row1-actions {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
   }
-  .ph-btn {
+
+  /* ── Row 2 ── */
+  .header-row2 {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px 0 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #2d2d2d;
+  }
+  .sessions-label {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 700;
+    color: #cccccc;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .row2-actions {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+
+  /* ── Shared icon button ── */
+  .hdr-btn {
     background: none;
     border: none;
     color: #858585;
@@ -131,53 +169,29 @@
     font-size: 13px;
     border-radius: 3px;
     cursor: pointer;
+    flex-shrink: 0;
   }
-  .ph-btn:hover { color: #cccccc; background: rgba(255,255,255,0.1); }
-  .sessions-section {
-    border-left: 1px solid #3c3c3c;
-    padding-left: 4px;
-    height: 100%;
-    display: flex;
-    align-items: center;
+  .hdr-btn:hover { color: #cccccc; background: rgba(255,255,255,0.08); }
+
+  /* New chat button has + and a tiny chevron side-by-side */
+  .new-btn {
+    width: auto;
+    gap: 1px;
+    padding: 0 4px;
   }
-  .sessions-btn {
-    background: none;
-    border: none;
-    color: #858585;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 0 6px;
-    height: 100%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  .sessions-btn:hover { color: #cccccc; }
+  .dropdown-arrow { font-size: 7px; }
+
+  /* ── Body ── */
   .chat-body {
     flex: 1;
     overflow-y: auto;
-    padding: 12px 8px;
   }
-  .tip-message {
-    background: #2d2d2d;
-    border: 1px solid #3c3c3c;
-    border-radius: 4px;
-    padding: 8px 10px;
-    font-size: 12px;
-    color: #cccccc;
-    line-height: 1.5;
-  }
-  .tip-label {
-    font-weight: 700;
-    color: #cccccc;
-    margin-right: 4px;
-  }
-  .tip-text { color: #888888; }
+
+  /* ── Input area ── */
   .chat-input-area {
     padding: 8px;
     flex-shrink: 0;
-    border-top: 1px solid #3c3c3c;
+    border-top: 1px solid #2d2d2d;
   }
   .input-box {
     background: #3c3c3c;
@@ -204,10 +218,7 @@
     gap: 6px;
     justify-content: space-between;
   }
-  .ask-btn-group {
-    display: flex;
-    align-items: center;
-  }
+  .ask-btn-group { display: flex; align-items: center; }
   .ask-btn {
     background: #0e639c;
     border: none;
@@ -226,8 +237,7 @@
     border: none;
     border-left: 1px solid rgba(255,255,255,0.2);
     color: #ffffff;
-    font-size: 10px;
-    padding: 0 6px;
+    padding: 0 5px;
     border-radius: 0 3px 3px 0;
     cursor: pointer;
     display: flex;

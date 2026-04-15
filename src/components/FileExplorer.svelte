@@ -209,11 +209,10 @@
   }
   .project-name { flex: 1; text-transform: uppercase; font-size: 11px; }
   .project-actions {
-    display: none;
+    display: flex;
     align-items: center;
     gap: 2px;
   }
-  .project-header:hover .project-actions { display: flex; }
   .hdr-btn {
     background: none;
     border: none;
