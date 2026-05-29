@@ -175,6 +175,25 @@ Label style rules:
 - If multiple descriptions help, separate with commas
 - Do not add meaningless duplicate phrases
 
+Element structure rules for bounding box extraction:
+- NEVER use `<button>` elements. Always use `<div>` elements instead. Buttons have browser-default styling (padding, border, min-height) that causes inconsistent bounding boxes.
+- Add `cursor-pointer` class to interactive `<div>` elements to preserve click affordance.
+- NEVER place `alt-id` on an element that has `pointer-events-none`. The bounding box extractor uses `document.elementFromPoint()` to verify each element is the topmost at its center. Elements with `pointer-events-none` are invisible to hit-testing, so the extractor silently drops them.
+- Always place `alt-id` on the outermost interactive wrapper, not on a nested child.
+- If you need a non-interactive inner layout container inside a clickable wrapper, do NOT put `alt-id` on the inner container. Put it on the outer clickable `<div>`.
+- Correct pattern:
+  ```
+  <div class="cursor-pointer ..." on:click={handler} alt-id="descriptive label">
+    <div class="inner-layout ...">content</div>
+  </div>
+  ```
+- Wrong pattern:
+  ```
+  <div on:click={handler}>
+    <div class="pointer-events-none" alt-id="descriptive label">content</div>
+  </div>
+  ```
+
 Spreadsheet/table-specific rules:
 - Label each cell individually.
 - Include coordinate references when useful, but do not rely on coordinates alone.

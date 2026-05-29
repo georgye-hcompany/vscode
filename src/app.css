@@ -1,4 +1,4 @@
-@import '../../assets/fontawesome-pro-6.7.2-web/css/all.css';
+@import '../fontawesome-pro-6.7.2-web/css/all.css';
 
 @tailwind base;
 @tailwind components;
